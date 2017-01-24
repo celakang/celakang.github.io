@@ -1,0 +1,48 @@
+<!DOCTYPE?html>
+
+<html>
+	<head>
+	<script type="text/javascript" src="write.js"></script>
+	</head>
+	
+	<body>
+	<span>
+	<div class="col-xs-12 col-sm-3">
+		<input type="radio" name="hasProband" value="y" onclick="saveTextAsFile('tmp.txt','helo00')">Yes
+		<input type="radio" name="hasProband" value="n" onclick="WriteToFile()" checked>No	
+	</div>
+	<a href="javascript:test()"> 按我 </a>
+	hello
+	</span>
+	</body>
+	
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script>
+	function saveTextAsFile( _fileName, _text ) {
+	alert(_text);
+    var textFileAsBlob = new Blob([_text], {type:'text/plain'});
+	
+    var downloadLink = document.createElement("a");
+    downloadLink.download = _fileName;
+    downloadLink.innerHTML = "Download File";
+    if (window.webkitURL != null) {
+        // Chrome allows the link to be clicked
+        // without actually adding it to the DOM.
+        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    } else {
+        // Firefox requires the link to be added to the DOM
+        // before it can be clicked.
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+    }
+ 
+    downloadLink.click();
+}
+ 
+function destroyClickedElement(event) {
+    document.body.removeChild(event.target);
+}
+	</script>
+</html>
